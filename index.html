@@ -20,6 +20,30 @@
 
     <p class="guesseSoFar">Your Guesses So Far:</p>
 
+    <script type="text/javascript">
+
+
+        document.onkeyup = function () {
+            var userGuess = String.fromCharCode(event.keyCode).
+                toLowerCase();
+
+            console.log(userGuess);
+
+        }
+
+        function makeid(length) {
+            var result = '';
+            var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+            var charactersLength = characters.length;
+            for (var i = 0; i < length; i++) {
+                result += characters.charAt(Math.floor(Math.random() * charactersLength));
+            }
+            return result;
+        }
+
+        console.log(makeid(1));
+
+    </script>
 
 </body>
 
