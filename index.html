@@ -12,52 +12,103 @@
 
 <!-- Pseudocode
 1.	User pushes key in target area “Guess what letter I’m thinking of” (Element ID)
-2.	On up-key, letter randomizer alerts user if letter correct [True || False]
-3.	On up-key, (Element ID) “Your Guesses So Far” will display/”write letters pushed by user
-4.	If True, Start count in Wins (Element ID) at 1, then start the game again (without refresh)
-5.	If False, Start count in Losses (Element ID) at 1
-6.	Then, update (Element ID) Guesses Left:  by displaying number of guesses left
+2.	On up-key, evaluate if the User Letter matches Computer-generated Random Letter
+3.  If User letter does not match Computer-generated Random Letter, target area "Your Guesses So Far"
+    displays letters chosen && target area "Guesses Left", with counter starting at 9, decrements by 1.
 
-7.	If User guess False 9 times, restart the game without a page refresh -->
+4.  If User letter matches Computer Letter, counter at target area "Wins" increments by 1 (without refresh)
+5.	On up-key, (Element ID) “Your Guesses So Far” will display/”write letters pushed by user
+
+
+6.	If User guesses wrong letter 9 times, restart the game without a page refresh 
+7.  If User matches letter, this is a Win, and all counters reset except "Wins" and "Losses"-->
 
 <body>
-    <h1><strong>The Psychic Game</strong></h1>
-    <p class="Guess">Guess what letter I'm thinking of:</p>
+    <div class="Game">
+        <h1><strong>The Psychic Game</strong></h1>
+        <p id="Guess">Guess what letter I'm thinking of:</p>
 
-    <p class="Wins">Wins:</p>
+        <p id="Wins">Wins: 0</p>
 
-    <p class="Losses">Losses:</p>
+        <p id="Losses">Losses:</p>
 
-    <p class="guessesLeft">Guesses Left:</p>
+        <p id="guessesLeft">Guesses Left:</p>
 
-    <p class="guessesSoFar">Your Guesses So Far:</p>
+        <p id="guessesSoFar">Your Guesses So Far:</p>
+
+    </div>
 
     <script type="text/javascript">
 
-        var letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p',
+        // The letters available for Computer or User to choose from.
+
+        let letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p',
             'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
 
+        // VARIABLES:
+
+        // wins variable score starts at 0 and increments each time User chooses correct letter
+        let wins = 0;
+
+        // losses variable, also starting at 0 and increments each time the user guesses wrong nine times.  
+        // Then, after the 9th wrong guess, game resets, and losses starts at 0 again
+        let losses = 0;
+
+        //guessesLeft variable begins at 9 and decrements each time User guesses wrong
+        let guessesLeft = 9;
+
+        //guessesSoFar variable displays each character the User guesses, followed by a comma.  At 9 letters, the game
+        //resets without a refresh
+        let guessesSoFar = 0;
+
+
+        //FUNCTIONS
+
+        //This function captures the User's guess (converts it to lower case in the event
+        // that caps lock was on), and displays that letter on screen)
         document.onkeyup = function () {
-            var userGuess = String.fromCharCode(event.keyCode).toLowerCase();
+            let userGuess = String.fromCharCode(event.keyCode).toLowerCase();
+            userGuess.textContent = event.keyCode;
 
             console.log(userGuess);
 
-            var computerRandomLetter = letters[Math.floor(Math.random() * letters.length)];
+            //Function to update wins.  Referenced from Week 3 Activity 34 "Questions Game".
+            function updateWins() {
+                document.querySelector("#Wins").innerHTML = "Wins: " + wins;
+            }
+
+            // 
+            //  userGuess.textContent = event.key;
+            //// Referencing Homework 3 reference from activity.  Added everyting after "toLowerCase()"
+            // also added "event" inside Function name // var userText = document.getElementById("user-text");
+
+
+            /////////////////
+            let computerRandomLetter = letters[Math.floor(Math.random() * letters.length)];
 
             console.log(computerRandomLetter);
 
-            if (userGuess == 'a' || userGuess == 'b' || userGuess == 'c' || userGuess == 'd' || userGuess == 'e'
-                || userGuess == 'f' || userGuess == 'g' || userGuess == 'h' || userGuess == 'i' || userGuess == 'j'
-                || userGuess == 'k' || userGuess == 'l' || userGuess == 'm' || userGuess == 'n' || userGuess == 'o'
-                || userGuess == 'p' || userGuess == 'q' || userGuess == 'r' || userGuess == 's' || userGuess == 't'
-                || userGuess == 'u' || userGuess == 'v' || userGuess == 'w' || userGuess == 'x' || userGuess == 'y'
-                || userGuess == 'z') {
-                alert("chosen correctly");
+            if ((userGuess) == (computerRandomLetter)) {
+                wins++
+                updateWins()
+                alert("Win: " + wins);
             } else {
-                alert("Please choose a letter only.");
+                guessesLeft--
+                alert("Losses: " + losses);
             }
 
+
         }
+
+            // starting next phase of this code, which is displaying the User Interface html 
+
+            // var Losses = document.getElementById('Losses').
+
+            // Reference Activity 21-Events to determine if we need document.onkeyup function
+            // to display all the users guesses 
+
+
+
 
 
     </script>
