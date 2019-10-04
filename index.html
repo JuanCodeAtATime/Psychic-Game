@@ -32,7 +32,7 @@
 
         <p id="Losses">Losses:</p>
 
-        <p id="guessesLeft">Guesses Left:</p>
+        <p id="guessesLeft">Guesses Left: 9</p>
 
         <p id="guessesSoFar">Your Guesses So Far:</p>
 
@@ -72,9 +72,19 @@
 
             console.log(userGuess);
 
-            //Function to update wins.  Referenced from Week 3 Activity 34 "Questions Game".
+            //Function to update Wins.  Referenced from Week 3 Activity 34 "Questions Game".
+            //Function to update Guesses Left: Used same logic as updateWins function.
+            //Function to update Guesses So Far: Used same logic as updateWins function.
             function updateWins() {
                 document.querySelector("#Wins").innerHTML = "Wins: " + wins;
+            }
+
+            function updateGuessesLeft() {
+                document.querySelector("#guessesLeft").innerHTML = "Guesses Left: " + guessesLeft;
+            }
+
+            function updateGuessesSoFar() {
+                document.querySelector("#guessesSoFar").innerHTML = "Your Guesses So Far: " + userGuess;
             }
 
             // 
@@ -91,11 +101,15 @@
             if ((userGuess) == (computerRandomLetter)) {
                 wins++
                 updateWins()
-                alert("Win: " + wins);
+
             } else {
                 guessesLeft--
-                alert("Losses: " + losses);
+                updateGuessesLeft()
+                updateGuessesSoFar()
+
             }
+
+
 
 
         }
